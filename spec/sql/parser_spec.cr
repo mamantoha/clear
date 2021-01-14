@@ -5,7 +5,6 @@ module ParserSpec
 
   describe "Clear::SQL" do
     describe "Parser" do
-
       it "parse correctly" do
         Clear::SQL::Parser.parse(<<-SQL
           SELECT * FROM "users" where (id > 100 and active is null);

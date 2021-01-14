@@ -1,5 +1,4 @@
 module Clear::Model::HasSaving
-
   # Default class-wise read_only? method is `false`
   macro included # When included into Model
     macro included # When included into final Model
@@ -62,7 +61,7 @@ module Clear::Model::HasSaving
   #
   # Example:
   #
-  # ```crystal
+  # ```
   # u = User.new
   # if u.save
   #   puts "User correctly saved !"
@@ -76,7 +75,7 @@ module Clear::Model::HasSaving
   #
   # Example:
   #
-  # ```crystal
+  # ```
   # u = User.new id: 123, email: "email@example.com"
   # u.save(-> (qry) { qry.on_conflict.do_update{ |u| u.set(email: "email@example.com") } #update
   # # IMPORTANT NOTICE: user may not be saved, but will be still detected as persisted !
@@ -84,20 +83,19 @@ module Clear::Model::HasSaving
   #
   # You may want to use a block for `on_conflict` optional parameter:
   #
-  # ```crystal
+  # ```
   # u = User.new id: 123, email: "email@example.com"
   # u.save do |qry|
   #    qry.on_conflict.do_update{ |u| u.set(email: "email@example.com")
   # end
   # ```
   #
-  def save(on_conflict : (Clear::SQL::InsertQuery -> )? = nil)
+  def save(on_conflict : (Clear::SQL::InsertQuery ->)? = nil)
     return false if self.class.read_only?
 
     with_triggers(:save) do
       if valid?
         if persisted?
-
           h = update_h
 
           if h.any?
@@ -122,7 +120,6 @@ module Clear::Model::HasSaving
         return false
       end
     end
-
   end
 
   def save(&block)
@@ -131,7 +128,7 @@ module Clear::Model::HasSaving
 
   # Performs `save` call, but instead of returning `false` if validation failed,
   # raise `Clear::Model::InvalidModelError` exception
-  def save!(on_conflict : (Clear::SQL::InsertQuery -> )? = nil)
+  def save!(on_conflict : (Clear::SQL::InsertQuery ->)? = nil)
     raise Clear::Model::ReadOnlyError.new(self) if self.class.read_only?
 
     raise Clear::Model::InvalidError.new(self) unless save(on_conflict)
@@ -169,7 +166,7 @@ module Clear::Model::HasSaving
   end
 
   def reload : self
-    set(self.class.query.where{ var("#{self.class.pkey}") == pkey }.fetch_first!)
+    set(self.class.query.where { var("#{self.class.pkey}") == pkey }.fetch_first!)
 
     invalidate_caching
 
@@ -188,7 +185,7 @@ module Clear::Model::HasSaving
     return false unless persisted?
 
     with_triggers(:delete) do
-      Clear::SQL::DeleteQuery.new.from(self.class.table).where{ var("#{self.class.pkey}") == pkey }.execute(@@connection)
+      Clear::SQL::DeleteQuery.new.from(self.class.table).where { var("#{self.class.pkey}") == pkey }.execute(@@connection)
 
       @persisted = false
       clear_change_flags
@@ -196,5 +193,4 @@ module Clear::Model::HasSaving
 
     true
   end
-
 end

@@ -9,7 +9,7 @@ module Clear::SQL::Query::CTE
 
   # Add a CTE to the query.
   #
-  # ```crystal
+  # ```
   # Clear::SQL.select.with_cte("full_year",
   #   "SELECT DATE(date)"
   #   "FROM generate_series(NOW() - INTERVAL '1 year', NOW(), '1 day'::interval) date")
@@ -23,7 +23,7 @@ module Clear::SQL::Query::CTE
 
   # Add a CTE to the query. Use NamedTuple convention:
   #
-  # ```crystal
+  # ```
   # Clear::SQL.select.with_cte(cte: "xxx")
   # # WITH cte AS xxx SELECT...
   # ```

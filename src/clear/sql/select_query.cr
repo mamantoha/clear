@@ -27,6 +27,6 @@ class Clear::SQL::SelectQuery
   include SelectBuilder
 
   def each
-    fetch{ |h| yield(h) }
+    fetch { |h| yield(h) }
   end
 end

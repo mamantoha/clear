@@ -108,7 +108,7 @@ module Clear::SQL::Query::Fetch
   # preventing creation of a new connection if you need to call SQL into the
   # yielded block.
   #
-  # ```crystal
+  # ```
   # # This is wrong: The connection is still busy retrieving the users:
   # Clear::SQL.select.from("users").fetch do |u|
   #   Clear::SQL.select.from("posts").where { u["id"] == posts.id }
@@ -118,7 +118,7 @@ module Clear::SQL::Query::Fetch
   # # Clear will store the value of the result set in memory
   # # before calling the block, and the connection is now ready to handle
   # # another query.
-  # Clear::SQL.select.from("users").fetch(fetch_all:true) do |u|
+  # Clear::SQL.select.from("users").fetch(fetch_all: true) do |u|
   #   Clear::SQL.select.from("posts").where { u["id"] == posts.id }
   # end
   # ```

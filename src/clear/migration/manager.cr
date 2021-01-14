@@ -69,8 +69,7 @@ class Clear::Migration::Manager
 
     raise no_migration_yet(version) if current_version.nil?
 
-    list_of_migrations.size + version <= 0 ? 0 :
-        list_of_migrations[version - 1].uid
+    list_of_migrations.size + version <= 0 ? 0 : list_of_migrations[version - 1].uid
   end
 
   def apply_to(version, direction = :both)
@@ -224,8 +223,8 @@ class Clear::Migration::Manager
     Clear::SQL.select("*")
       .from("__clear_metadatas")
       .where({metatype: "migration"}).to_a.map { |m|
-        @migrations_up.add(Int64.new(m["value"].as(String)))
-      }
+      @migrations_up.add(Int64.new(m["value"].as(String)))
+    }
   end
 
   def refresh

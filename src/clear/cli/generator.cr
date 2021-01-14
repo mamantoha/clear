@@ -37,7 +37,6 @@ end
 require "./generators/**"
 
 # require "ecr"
-
 # record Clear::CLI::Generator, name : String, desc : String, callback : Array(String) -> Void
 
 # class Clear::CLI::GeneratorCommand < Clear::CLI::Command

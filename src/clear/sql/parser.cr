@@ -1,9 +1,7 @@
-
 # :nodoc:
 #
 # Small & ugly SQL parser used ONLY for colorizing the query.
 module Clear::SQL::Parser
-
   SQL_KEYWORDS = Set(String).new(%w(
     ADD ALL ALTER ANALYSE ANALYZE AND ANY ARRAY AS ASC ASYMMETRIC
     BEGIN BOTH BY CASE CAST CHECK COLLATE COLUMN COMMIT CONSTRAINT COUNT CREATE CROSS
@@ -39,7 +37,7 @@ module Clear::SQL::Parser
 
   record Token, content : String, type : TokenType
 
-  private def self.findtype( x : String )
+  private def self.findtype(x : String)
     return TokenType::Wildcard if x == "*"
     return TokenType::Space if x == " " || x == "\n"
     return TokenType::Keyword if SQL_KEYWORDS.includes?(x.upcase)
@@ -67,14 +65,14 @@ module Clear::SQL::Parser
         case c
         when ' '
           if io.peek_next_char != ' '
-            yield Token.new(content.to_s, TokenType::Space )
+            yield Token.new(content.to_s, TokenType::Space)
             content.clear
           end
         when '"', '\''
-          keyword = content.to_s[0..-2] #Remove the last ' '
+          keyword = content.to_s[0..-2] # Remove the last ' '
 
-          yield Token.new(keyword, findtype(keyword) ) unless keyword.empty?
-          yield Token.new(" ", TokenType::Space ) if c == " "
+          yield Token.new(keyword, findtype(keyword)) unless keyword.empty?
+          yield Token.new(" ", TokenType::Space) if c == " "
 
           content.clear
           content << c
@@ -83,8 +81,8 @@ module Clear::SQL::Parser
           mode = Modes::String if c == '\''
         when '-'
           if io.peek_next_char == '-'
-            keyword = content.to_s[0..-2] #Remove the '-'
-            yield Token.new(keyword, findtype(keyword) )
+            keyword = content.to_s[0..-2] # Remove the '-'
+            yield Token.new(keyword, findtype(keyword))
 
             content.clear
             content << c
@@ -97,7 +95,7 @@ module Clear::SQL::Parser
         case c
         when '\n'
           keyword = content.to_s
-          yield Token.new(keyword, findtype(keyword) )
+          yield Token.new(keyword, findtype(keyword))
 
           content.clear
           mode = Modes::Normal
@@ -126,9 +124,6 @@ module Clear::SQL::Parser
           end
         end
       end
-
     end
-
   end
-
 end

@@ -1,7 +1,6 @@
 require "../spec_helper"
 
 module IntervalSpec
-
   class IntervalMigration78392
     include Clear::Migration
 
@@ -48,31 +47,28 @@ module IntervalSpec
           mdl.i.days.should eq days
           mdl.i.microseconds.should eq microseconds
         end
-
       end
     end
 
     it "can be added and substracted to a date" do
-
       # TimeSpan
       [1.hour, 1.day, 1.month].each do |span|
         i = Clear::Interval.new(span)
         now = Time.local
 
-        (now + i).to_unix.should eq( (now+span).to_unix)
-        (now - i).to_unix.should eq( (now-span).to_unix )
+        (now + i).to_unix.should eq((now + span).to_unix)
+        (now - i).to_unix.should eq((now - span).to_unix)
       end
 
       i = Clear::Interval.new(months: 1, days: -1, minutes: 12)
       now = Time.local
 
-      (now + i).to_unix.should eq( (now+1.month-1.day+12.minute).to_unix)
-      (now - i).to_unix.should eq( (now-1.month+1.day-12.minute).to_unix)
-
+      (now + i).to_unix.should eq((now + 1.month - 1.day + 12.minute).to_unix)
+      (now - i).to_unix.should eq((now - 1.month + 1.day - 12.minute).to_unix)
     end
 
     it "can be used in expression engine" do
-      IntervalModel.query.where{
+      IntervalModel.query.where {
         (created_at - Clear::Interval.new(months: 1)) > updated_at
       }.to_sql.should eq %(SELECT * FROM "interval_table" WHERE (("created_at" - INTERVAL '1 months') > "updated_at"))
     end
@@ -87,14 +83,13 @@ module IntervalSpec
       value = 12i64 * 3_600 + 50*60
       Clear::TimeInDay.parse("12:50").microseconds.should eq(value * 1_000_000)
 
-      Clear::TimeInDay.parse("12:50:02").microseconds.should eq( (value+2)  * 1_000_000)
+      Clear::TimeInDay.parse("12:50:02").microseconds.should eq((value + 2) * 1_000_000)
 
-      wrong_formats = {"a:21", ":32:54", "12345", "0:0:0" }
+      wrong_formats = {"a:21", ":32:54", "12345", "0:0:0"}
 
       wrong_formats.each do |format|
-        expect_raises(Exception, /wrong format/i){ Clear::TimeInDay.parse(format) }
+        expect_raises(Exception, /wrong format/i) { Clear::TimeInDay.parse(format) }
       end
-
     end
 
     it "can be saved into database and converted" do
@@ -108,7 +103,6 @@ module IntervalSpec
 
         i.reload.t.to_s.should eq("12:44:00")
       end
-
     end
   end
 end

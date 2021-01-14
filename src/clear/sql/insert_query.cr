@@ -49,7 +49,6 @@ class Clear::SQL::InsertQuery
           fetch_result_set(h, rs) { |x| yield(x) }
         end
       end
-
     end
   end
 

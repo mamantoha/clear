@@ -37,5 +37,4 @@ module Clear
       yield
     end
   end
-
 end

@@ -1,7 +1,6 @@
 require "../spec_helper"
 require "./cache_schema"
 
-
 module CacheSpec
   def self.reinit
     Clear::Migration::Manager.instance.reinit!
@@ -70,7 +69,6 @@ module CacheSpec
           end
         end
       end
-
     end
   end
 end

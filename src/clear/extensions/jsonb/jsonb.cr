@@ -5,7 +5,7 @@
 #
 # Functions can be used calling or including Clear::SQL::JSONB methods as helper methods:
 #
-# ```crystal
+# ```
 # class MyClass
 #   include Clear::SQL::JSONB
 #
@@ -20,7 +20,7 @@
 #
 # ### Filter by jsonb
 #
-# ```crystal
+# ```
 # Product.query.where { (attributes.jsonb("category") == "Book") & (attributes.jsonb("author.name") == "Philip K. Dick") }
 # # ^-- Will produce optimized for gin index jsonb filter query:
 # # WHERE attributes @> '{"category": "Book", "author": {"name": "Philip K. Dick"} }'::jsonb
@@ -107,7 +107,7 @@ module Clear::SQL::JSONB
 
   # Test equality using the `@>` operator
   #
-  # ```crystal
+  # ```
   # jsonb_eq("data.sub.key", "value")
   # ```
   #
@@ -134,7 +134,7 @@ module Clear::SQL::JSONB
 
   # Return text selector for the field/key :
   #
-  # ```crystal
+  # ```
   # jsonb_text("data", "sub.key").like("user%")
   # # => "data->'sub'->>'key' LIKE 'user%'"
   # ```

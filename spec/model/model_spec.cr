@@ -374,7 +374,7 @@ module ModelSpec
           reinit
 
           u = User.new({first_name: "John"})
-          post = Post.new({user: u, title: "some post" })
+          post = Post.new({user: u, title: "some post"})
 
           u.save!
           post.save! # Exception

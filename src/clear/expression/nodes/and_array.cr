@@ -13,7 +13,7 @@ class Clear::Expression::Node::AndArray < Clear::Expression::Node
       {
         "(",
         @expression.map(&.resolve).join(" AND "),
-        ")"
+        ")",
       }.join
     else
       ""

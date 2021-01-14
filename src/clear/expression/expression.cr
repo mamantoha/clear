@@ -44,7 +44,7 @@
 # Due to the impossibility to reuse `||` and `&&`, beware the operator precendance
 # rules are changed.
 #
-# ```crystal
+# ```
 # # v-- This below will not works, as we cannot redefine the `or` operator
 # model_collection.where { first_name == "yacine" || last_name == "petitprez" }
 # # v-- This will works, but beware of the parenthesis between each terms, as `|` is prioritary on `==`
@@ -170,7 +170,7 @@ class Clear::Expression
   # This method will raise error on compilation if discovered in the code.
   # This allow to avoid issues like this one at compile type:
   #
-  # ```crystal
+  # ```
   # id = 1
   # # ... and later
   # User.query.where { id == 2 }
@@ -229,7 +229,7 @@ class Clear::Expression
   # BE AWARE than the String is pasted AS-IS and can lead to SQL injection if not used properly.
   #
   # ```
-  # having { raw("COUNT(*)") > 5 } # SELECT ... FROM ... HAVING COUNT(*) > 5
+  # having { raw("COUNT(*)") > 5 }           # SELECT ... FROM ... HAVING COUNT(*) > 5
   # where { raw("func(?, ?) = ?", a, b, c) } # SELECT ... FROM ... WHERE function(a, b) = c
   # ```
   #
@@ -238,7 +238,6 @@ class Clear::Expression
     Node::Raw.new(self.class.raw(x, *args))
   end
 
-
   # In case the name of the variable is a reserved word (e.g. `not`, `var`, `raw` )
   # or in case of a complex piece of computation impossible to express with the expression engine
   # (e.g. usage of functions) you can use then raw to pass the String.
@@ -246,7 +245,7 @@ class Clear::Expression
   # BE AWARE than the String is pasted AS-IS and can lead to SQL injection if not used properly.
   #
   # ```
-  # having { raw("COUNT(*)") > 5 } # SELECT ... FROM ... HAVING COUNT(*) > 5
+  # having { raw("COUNT(*)") > 5 }           # SELECT ... FROM ... HAVING COUNT(*) > 5
   # where { raw("func(?, ?) = ?", a, b, c) } # SELECT ... FROM ... WHERE function(a, b) = c
   # ```
   #
@@ -276,7 +275,7 @@ class Clear::Expression
   # BE AWARE than the String is pasted AS-IS and can lead to SQL injection if not used properly.
   #
   # ```
-  # having { raw("COUNT(*)") > 5 } # SELECT ... FROM ... HAVING COUNT(*) > 5
+  # having { raw("COUNT(*)") > 5 }                       # SELECT ... FROM ... HAVING COUNT(*) > 5
   # where { raw("func(:a, :b) = :c", a: a, b: b, c: c) } # SELECT ... FROM ... WHERE function(a, b) = c
   # ```
   #
@@ -291,7 +290,7 @@ class Clear::Expression
   # BE AWARE than the String is pasted AS-IS and can lead to SQL injection if not used properly.
   #
   # ```
-  # having { raw("COUNT(*)") > 5 } # SELECT ... FROM ... HAVING COUNT(*) > 5
+  # having { raw("COUNT(*)") > 5 }                       # SELECT ... FROM ... HAVING COUNT(*) > 5
   # where { raw("func(:a, :b) = :c", a: a, b: b, c: c) } # SELECT ... FROM ... WHERE function(a, b) = c
   # ```
   #
@@ -311,10 +310,10 @@ class Clear::Expression
   # It escapes each part of the expression with double-quote as requested by PostgreSQL.
   # This is useful to escape SQL keywords or `.` and `"` character in the name of a column.
   #
-  # ```crystal
-  #   var("template1", "users", "name") # "template1"."users"."name"
-  #   var("template1", "users.table2", "name") # "template1"."users.table2"."name"
-  #   var("order") # "order"
+  # ```
+  # var("template1", "users", "name")        # "template1"."users"."name"
+  # var("template1", "users.table2", "name") # "template1"."users.table2"."name"
+  # var("order")                             # "order"
   # ```
   #
   def var(*parts)
@@ -333,8 +332,8 @@ class Clear::Expression
   # Because many postgresql operators are not transcriptable in Crystal lang,
   # this helpers helps to write the expressions:
   #
-  # ```crystal
-  # where { op(jsonb_field, "something", "?") } #<< Return "jsonb_field ? 'something'"
+  # ```
+  # where { op(jsonb_field, "something", "?") } # << Return "jsonb_field ? 'something'"
   # ```
   #
   def op(a : (Node | AvailableLiteral), b : (Node | AvailableLiteral), op : String)

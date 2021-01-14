@@ -11,12 +11,12 @@ module Clear::SQL::Query::Where
   end
 
   # Build SQL `where` condition using a Clear::Expression::Node
-  # ```crystal
+  # ```
   # query.where(Clear::Expression::Node::InArray.new("id", ['1', '2', '3', '4']))
   # # Note: in this example, InArray node use unsafe strings
   # ```
   # If useful for moving a where clause from a request to another one:
-  # ```crystal
+  # ```
   # query1.where { a == b } # WHERE a = b
   # ```
   # ```
@@ -29,13 +29,12 @@ module Clear::SQL::Query::Where
   end
 
   # Build SQL `where` condition using the Expression engine.
-  # ```crystal
+  # ```
   # query.where { id == 1 }
   # ```
   def where(&block)
     where(Clear::Expression.ensure_node!(with Clear::Expression.new yield))
   end
-
 
   def where(**tuple)
     where(conditions: tuple)
@@ -44,20 +43,20 @@ module Clear::SQL::Query::Where
   # Build SQL `where` condition using a NamedTuple.
   #   this will use:
   # - the `=` operator if compared with a literal
-  # ```crystal
+  # ```
   # query.where({keyword: "hello"}) # WHERE keyword = 'hello'
   # ```
   # - the `IN` operator if compared with an array:
-  # ```crystal
+  # ```
   # query.where({x: [1, 2]}) # WHERE x in (1,2)
   # ```
   # - the `>=` and `<=` | `<` if compared with a range:
-  # ```crystal
+  # ```
   # query.where({x: (1..4)})  # WHERE x >= 1 AND x <= 4
   # query.where({x: (1...4)}) # WHERE x >= 1 AND x < 4
   # ```
   # - You also can put another select query as argument:
-  # ```crystal
+  # ```
   # query.where({x: another_select}) # WHERE x IN (SELECT ... )
   # ```
   def where(conditions : NamedTuple | Hash(String, Clear::SQL::Any))
@@ -85,10 +84,9 @@ module Clear::SQL::Query::Where
     change!
   end
 
-
   # Build SQL `where` condition using a template string and
   # interpolating `?` characters with parameters given in a tuple or array.
-  # ```crystal
+  # ```
   # where("x = ? OR y = ?", {1, "l'eau"}) # WHERE x = 1 OR y = 'l''eau'
   # ```
   # Raise error if there's not enough parameters to cover all the `?` placeholders
@@ -100,12 +98,12 @@ module Clear::SQL::Query::Where
     return where(str, parameters) if @wheres.empty?
     old_clause = Clear::Expression::Node::AndArray.new(@wheres)
     @wheres.clear
-    @wheres << Clear::Expression::Node::DoubleOperator.new(old_clause, Clear::Expression::Node::Raw.new( Clear::Expression.raw_enum("(#{str})", parameters) ), "OR")
+    @wheres << Clear::Expression::Node::DoubleOperator.new(old_clause, Clear::Expression::Node::Raw.new(Clear::Expression.raw_enum("(#{str})", parameters)), "OR")
     change!
   end
 
   # Build SQL `where` interpolating `:keyword` with the NamedTuple passed in argument.
-  # ```crystal
+  # ```
   # where("id = :id OR date >= :start", {id: 1, start: 1.day.ago})
   # # WHERE id = 1 AND date >= '201x-xx-xx ...'
   # ```
@@ -117,14 +115,13 @@ module Clear::SQL::Query::Where
     return where(str, parameters) if @wheres.empty?
     old_clause = Clear::Expression::Node::AndArray.new(@wheres)
     @wheres.clear
-    @wheres << Clear::Expression::Node::DoubleOperator.new(old_clause, Clear::Expression::Node::Raw.new( Clear::Expression.raw("(#{str})", **parameters) ), "OR")
+    @wheres << Clear::Expression::Node::DoubleOperator.new(old_clause, Clear::Expression::Node::Raw.new(Clear::Expression.raw("(#{str})", **parameters)), "OR")
     change!
   end
 
-
   # Build custom SQL `where`
   #   beware of SQL injections!
-  # ```crystal
+  # ```
   # where("ADD_SOME_DANGEROUS_SQL_HERE") # WHERE ADD_SOME_DANGEROUS_SQL_HERE
   # ```
   def where(str : String)
@@ -137,7 +134,7 @@ module Clear::SQL::Query::Where
     old_clause = Clear::Expression::Node::AndArray.new(@wheres)
     @wheres = [
       Clear::Expression::Node::DoubleOperator.new(old_clause,
-      Clear::Expression::Node::Raw.new("(#{str})"), "OR")
+        Clear::Expression::Node::Raw.new("(#{str})"), "OR"),
     ]
     change!
   end

@@ -43,7 +43,7 @@ module SelectSpec
       end
 
       it "can transfert to update method" do
-        r = select_request.select("*").from(:users).where { var("users","id") > 1000 }
+        r = select_request.select("*").from(:users).where { var("users", "id") > 1000 }
         r.to_update.set(x: 1).to_sql.should eq "UPDATE \"users\" SET \"x\" = 1 WHERE (\"users\".\"id\" > 1000)"
       end
 
@@ -184,7 +184,6 @@ module SelectSpec
               eq %(SELECT * FROM "users" WHERE ((a = 1) OR (b = 2)))
             )
           end
-
 
           it "can use `in` operators in case of array" do
             r = select_request.from(:users).where({user_id: [1, 2, 3, 4, "hello"]})

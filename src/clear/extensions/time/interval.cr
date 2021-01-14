@@ -4,7 +4,7 @@ struct Clear::Interval
   getter days : Int32 = 0
   getter months : Int32 = 0
 
-  def initialize(span : Time::Span )
+  def initialize(span : Time::Span)
     @microseconds = span.total_nanoseconds.to_i64 // 1_000
   end
 
@@ -26,10 +26,10 @@ struct Clear::Interval
     @months = (12 * years + months).to_i32
     @days = days.to_i32
     @microseconds = (
-      microseconds.to_i64        +
-      milliseconds *  1_000_i64  +
-      seconds *   1_000_000_i64  +
-      minutes *  60_000_000_i64  +
+      microseconds.to_i64 +
+      milliseconds * 1_000_i64 +
+      seconds * 1_000_000_i64 +
+      minutes * 60_000_000_i64 +
       hours * 3_600_000_000_i64
     )
   end
@@ -37,13 +37,13 @@ struct Clear::Interval
   def to_sql
     o = [] of String
 
-    (o << @months.to_s       << "months") if @months != 0
-    (o << @days.to_s         << "days") if @days != 0
+    (o << @months.to_s << "months") if @months != 0
+    (o << @days.to_s << "days") if @days != 0
     (o << @microseconds.to_s << "microseconds") if @microseconds != 0
 
     Clear::SQL.unsafe({
       "INTERVAL",
-      Clear::Expression[o.join(" ")]
+      Clear::Expression[o.join(" ")],
     }.join(" "))
   end
 
@@ -82,7 +82,6 @@ struct Clear::Interval
       x.try &.to_sql
     end
   end
-
 end
 
 struct Time
