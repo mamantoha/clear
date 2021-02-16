@@ -13,9 +13,9 @@ def initdb
 
   pg.exec("DROP DATABASE IF EXISTS clear_secondary_spec;")
   pg.exec("CREATE DATABASE clear_secondary_spec;")
-  pg.exec(
+
+  clear_secondary_spec_db.exec(
     <<-SQL
-      \\connect clear_secondary_spec;
       CREATE TABLE models_post_stats (id serial PRIMARY KEY, post_id INTEGER);
     SQL
   )
@@ -55,6 +55,10 @@ end
 
 def pg
   DB.open("postgres://#{postgres_user}:#{postgres_password}@#{postgres_host}/#{postgres_db}")
+end
+
+def clear_secondary_spec_db
+  DB.open("postgres://#{postgres_user}:#{postgres_password}@#{postgres_host}/clear_secondary_spec")
 end
 
 initdb
