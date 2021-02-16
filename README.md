@@ -4,7 +4,6 @@
 
 ![Crystal CI](https://github.com/mamantoha/clear/workflows/Crystal%20CI/badge.svg)
 [![GitHub release](https://img.shields.io/github/release/mamantoha/clear.svg)](https://github.com/mamantoha/clear/releases)
-[![All Contributors](https://img.shields.io/badge/all_contributors-17-orange.svg?style=flat-square)](#contributors-)
 
 Clear is an ORM built specifically for PostgreSQL in Crystal.
 
@@ -19,12 +18,6 @@ The philosophy beneath is to please me (and you !) with emphasis made on busines
 code readability and minimal setup.
 
 The project is quite active and well maintened, too !
-
-## Resources
-
-- [Online Manual and Getting Started](https://clear.gitbook.io/project/)
-- [Auto-generated API Documentation](https://anykeyh.github.io/clear/)
-- [Changelog](https://github.com/anykeyh/clear/blob/master/CHANGELOG.md)
 
 ## Why to use Clear ?
 
