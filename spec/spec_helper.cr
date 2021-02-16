@@ -15,8 +15,8 @@ def initdb
   pg.exec("CREATE DATABASE clear_secondary_spec;")
   pg.exec("CREATE TABLE models_post_stats (id serial PRIMARY KEY, post_id INTEGER);")
 
-  Clear::SQL.init("postgres://postgres:postgres@localhost/clear_spec", connection_pool_size: 5)
-  Clear::SQL.init("secondary", "postgres://postgres:postgres@localhost/clear_secondary_spec", connection_pool_size: 5)
+  Clear::SQL.init("postgres://#{postgres_user}:#{postgres_password}@#{postgres_host}/clear_spec", connection_pool_size: 5)
+  Clear::SQL.init("secondary", "postgres://#{postgres_user}:#{postgres_password}@#{postgres_host}/clear_secondary_spec", connection_pool_size: 5)
 
   {% if flag?(:quiet) %} Log.setup(:error) {% else %} Log.setup(:debug) {% end %}
 end
@@ -32,12 +32,23 @@ def temporary(&block)
   end
 end
 
-def pg
-  postgres_user = ENV["POSTGRES_USER"]? || "postgres"
-  postgres_password = ENV["POSTGRES_PASSWORD"]? || ""
-  postgres_host = ENV["POSTGRES_HOST"]? || "localhost"
-  postgres_db = ENV["POSTGRES_DB"]? || "postgres"
+def postgres_user
+  ENV["POSTGRES_USER"]? || "postgres"
+end
 
+def postgres_password
+  ENV["POSTGRES_PASSWORD"]? || ""
+end
+
+def postgres_host
+  ENV["POSTGRES_HOST"]? || "localhost"
+end
+
+def postgres_db
+  ENV["POSTGRES_DB"]? || "postgres"
+end
+
+def pg
   DB.open("postgres://#{postgres_user}:#{postgres_password}@#{postgres_host}/#{postgres_db}")
 end
 
