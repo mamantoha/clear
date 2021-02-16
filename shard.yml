@@ -1,16 +1,14 @@
 name: clear
 
-version: 0.8
+version: 0.8.1
 
-crystal: 0.35.1
+crystal: 0.36.1
 
 authors:
    - Yacine Petitprez <anykeyh@gmail.com>
+   - Anton Maminov <anton.maminov@gmail.com>
 
 description: Clear ORM is an advanced ORM focusing on PostgreSQL
-
-# scripts:
-#   postinstall: "./bin/install-cli"
 
 dependencies:
   admiral:
@@ -27,8 +25,6 @@ dependencies:
     version: "~> 0.1.8"
 
 development_dependencies:
-  # coverage:
-  #   github: anykeyh/crystal-coverage
   ameba:
     github: veelenga/ameba
     branch: master

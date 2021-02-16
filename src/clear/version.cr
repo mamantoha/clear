@@ -1,3 +1,3 @@
 module Clear
-  VERSION = "v0.8"
+  VERSION = {{ `shards version #{__DIR__}`.chomp.stringify }}
 end
