@@ -15,7 +15,7 @@ def initdb
   pg.exec("CREATE DATABASE clear_secondary_spec;")
   pg.exec(
     <<-SQL
-      \connect clear_secondary_spec;
+      \\connect clear_secondary_spec;
       CREATE TABLE models_post_stats (id serial PRIMARY KEY, post_id INTEGER);
     SQL
   )
