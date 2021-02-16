@@ -57,9 +57,6 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
 
-      - name: Install Ubuntu dependencies
-        run: apt install postgresql-client-common
-
       # Performs a clean installation of all dependencies in the `shard.yml` file
       - name: Install dependencies
         run: shards install --ignore-crystal-version

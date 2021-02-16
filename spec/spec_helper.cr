@@ -15,7 +15,6 @@ def initdb
   pg.exec("CREATE DATABASE clear_secondary_spec;")
   pg.exec("CREATE TABLE models_post_stats (id serial PRIMARY KEY, post_id INTEGER);")
 
-
   Clear::SQL.init("postgres://postgres:postgres@localhost/clear_spec", connection_pool_size: 5)
   Clear::SQL.init("secondary", "postgres://postgres:postgres@localhost/clear_secondary_spec", connection_pool_size: 5)
 
@@ -41,6 +40,5 @@ def pg
 
   DB.open("postgres://#{postgres_user}:#{postgres_password}@#{postgres_host}/#{postgres_db}")
 end
-
 
 initdb
