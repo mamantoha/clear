@@ -51,7 +51,7 @@ module MultipleConnectionsSpec
         end
       end
 
-      it "can insert data into the secondary database" do
+      pending "can insert data into the secondary database" do
         temporary do
           reinit
           p = PostStat.new({post_id: 1})
@@ -61,7 +61,7 @@ module MultipleConnectionsSpec
         end
       end
 
-      it "can update data on the secondary database" do
+      pending "can update data on the secondary database" do
         temporary do
           reinit
           p = PostStat.new({post_id: 1})
@@ -76,7 +76,7 @@ module MultipleConnectionsSpec
         end
       end
 
-      it "can update data on the secondary database" do
+      pending "can update data on the secondary database" do
         temporary do
           reinit
           p = PostStat.new({post_id: 1})
