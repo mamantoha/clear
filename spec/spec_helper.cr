@@ -13,7 +13,13 @@ def initdb
 
   pg.exec("DROP DATABASE IF EXISTS clear_secondary_spec;")
   pg.exec("CREATE DATABASE clear_secondary_spec;")
-  pg.exec("CREATE TABLE models_post_stats (id serial PRIMARY KEY, post_id INTEGER);")
+  pg.exec(
+    <<-SQL
+      USE clear_secondary_spec;
+      CREATE TABLE models_post_stats (id serial PRIMARY KEY, post_id INTEGER);
+    SQL
+  )
+
 
   Clear::SQL.init("postgres://#{postgres_user}:#{postgres_password}@#{postgres_host}/clear_spec", connection_pool_size: 5)
   Clear::SQL.init("secondary", "postgres://#{postgres_user}:#{postgres_password}@#{postgres_host}/clear_secondary_spec", connection_pool_size: 5)
