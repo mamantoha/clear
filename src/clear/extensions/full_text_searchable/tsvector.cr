@@ -45,11 +45,11 @@ class Clear::TSVector
   end
 
   def to_sql
-    @lexems.values.map do |v|
+    @lexems.values.join(":") do |v|
       {
         Clear::Expression[v.value],
-        v.positions.map { |p| {p.position, p.weight}.join }.join(","),
-      }.join(":")
+        v.positions.join(",") { |p| {p.position, p.weight}.join },
+      }
     end.join(" ")
   end
 

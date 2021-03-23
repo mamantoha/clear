@@ -36,9 +36,9 @@ module Clear::SQL::Query::CTE
 
   # :nodoc:
   protected def print_ctes
-    if cte.any?
+    unless cte.empty?
       {"WITH ",
-       cte.map do |name, cte_declaration|
+       cte.join(", ") do |name, cte_declaration|
          value = if cte_declaration.responds_to?(:to_sql)
                    cte_declaration.to_sql
                  else
@@ -46,7 +46,7 @@ module Clear::SQL::Query::CTE
                  end
 
          {name, " AS (", value, ")"}.join
-       end.join(", "),
+       end,
       }.join
     end
   end

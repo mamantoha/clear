@@ -372,7 +372,7 @@ module Clear::Model
     def any?
       cr = @cached_result
 
-      return cr.any? if cr
+      return !cr.empty? if cr
 
       clear_select.select("1").limit(1).fetch do |_|
         return true
@@ -522,7 +522,7 @@ module Clear::Model
     # Get the first row from the collection query.
     # if not found, return `nil`
     def first(fetch_columns = false) : T?
-      order_by(Clear::SQL.escape("#{T.pkey}"), "ASC") unless T.pkey.nil? || order_bys.any?
+      order_by(Clear::SQL.escape("#{T.pkey}"), "ASC") if T.pkey || order_bys.empty?
 
       limit(1).fetch do |hash|
         return Clear::Model::Factory.build(T, hash, persisted: true, cache: @cache, fetch_columns: fetch_columns)
@@ -547,7 +547,7 @@ module Clear::Model
     # Get the last row from the collection query.
     # if not found, return `nil`
     def last(fetch_columns = false) : T?
-      order_by("#{T.pkey}", "ASC") unless T.pkey.nil? || order_bys.any?
+      order_by("#{T.pkey}", "ASC") if T.pkey || order_bys.empty?
 
       arr = order_bys.dup # Save current order by
 

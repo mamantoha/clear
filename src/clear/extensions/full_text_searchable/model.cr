@@ -128,7 +128,7 @@ module Clear::Model::FullTextSearchable
         end
       when ' '
         if quote_char.nil?
-          if currtoken.any?
+          unless currtoken.empty?
             arr_tokens << {modifier, currtoken.join}
             currtoken.clear
           end
@@ -160,7 +160,7 @@ module Clear::Model::FullTextSearchable
       last_char = c
     end
 
-    if currtoken.any?
+    unless currtoken.empty?
       arr_tokens << {modifier, currtoken.join}
     end
 
@@ -180,12 +180,12 @@ module Clear::Model::FullTextSearchable
     text = text.gsub(/\+/, " ")
     tokens = split_to_exp(text)
 
-    tokens.map do |(modifier, value)|
+    tokens.join(" & ") do |(modifier, value)|
       if modifier == :-
         "!" + Clear::Expression[value]
       else
         Clear::Expression[value]
       end
-    end.join(" & ")
+    end
   end
 end

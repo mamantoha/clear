@@ -71,6 +71,6 @@ module Clear::SQL::Query::Having
   end
 
   protected def print_havings
-    {"HAVING ", @havings.map(&.resolve).join(" AND ")}.join if @havings.any?
+    {"HAVING ", @havings.join(" AND ", &.resolve)}.join unless @havings.empty?
   end
 end

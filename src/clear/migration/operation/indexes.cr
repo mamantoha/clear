@@ -7,7 +7,7 @@ module Clear::Migration
     @using : String?
 
     def initialize(@table, @fields : Array(String), name = nil, @using = nil, @unique = false)
-      @name = name || safe_name(table + "_" + fields.map(&.to_s.underscore).join("_") + "_idx")
+      @name = name || safe_name(table + "_" + fields.join("_", &.to_s.underscore) + "_idx")
     end
 
     def initialize(@table, field : String | Symbol, name = nil, @using = nil, @unique = false)

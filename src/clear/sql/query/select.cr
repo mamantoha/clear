@@ -87,7 +87,7 @@ module Clear::SQL::Query::Select
   end
 
   protected def print_columns
-    (@columns.any? ? @columns.map(&.to_sql.as(String)).join(", ") : print_wildcard)
+    @columns.empty? ? print_wildcard : @columns.join(", ", &.to_sql.as(String))
   end
 
   protected def print_select

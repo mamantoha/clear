@@ -42,12 +42,12 @@ class Clear::SQL::UpdateQuery
 
   # :nodoc:
   protected def print_value(row : Hash(String, Updatable)) : String
-    row.map { |k, v| [Clear::SQL.escape(k.to_s), Clear::Expression[v]].join(" = ") }.join(", ")
+    row.join(", ") { |k, v| [Clear::SQL.escape(k.to_s), Clear::Expression[v]].join(" = ") }
   end
 
   # :nodoc:
   protected def print_values : String
-    @values.map do |x|
+    @values.join(", ") do |x|
       case x
       when String
         x
@@ -56,7 +56,7 @@ class Clear::SQL::UpdateQuery
       when Nil
         "NULL"
       end
-    end.join(", ")
+    end
   end
 
   def to_sql
