@@ -50,6 +50,6 @@ module Clear::SQL::Query::OrderBy
   protected def print_order_bys
     return if @order_bys.empty?
 
-    "ORDER BY " + @order_bys.join(" ") { |r| [r.op, r.dir.to_s.upcase, r.nulls].compact }.join(", ")
+    "ORDER BY " + @order_bys.join(", ") { |r| [r.op, r.dir.to_s.upcase, r.nulls].compact.join(" ") }
   end
 end
