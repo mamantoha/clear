@@ -1,8 +1,8 @@
 name: clear
 
-version: 0.8.1
+version: 0.8.2
 
-crystal: 0.36.1
+crystal: ">= 1.0.0"
 
 authors:
    - Yacine Petitprez <anykeyh@gmail.com>
