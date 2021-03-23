@@ -9,14 +9,12 @@ class Clear::Expression::Node::AndArray < Clear::Expression::Node
   end
 
   def resolve : String
-    if @expression.any?
-      {
-        "(",
-        @expression.map(&.resolve).join(" AND "),
-        ")",
-      }.join
-    else
-      ""
-    end
+    return "" if @expression.empty?
+
+    {
+      "(",
+      @expression.join(" AND ", &.resolve),
+      ")",
+    }.join
   end
 end

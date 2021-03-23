@@ -98,7 +98,7 @@ module Clear::Model::HasSaving
         if persisted?
           h = update_h
 
-          if h.any?
+          unless h.empty?
             with_triggers(:update) do
               Clear::SQL.update(self.class.table).set(update_h).where { var("#{self.class.pkey}") == pkey }.execute(@@connection)
             end

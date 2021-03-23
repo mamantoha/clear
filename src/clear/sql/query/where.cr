@@ -148,6 +148,6 @@ module Clear::SQL::Query::Where
 
   # :nodoc:
   protected def print_wheres
-    {"WHERE ", @wheres.map(&.resolve).join(" AND ")}.join if @wheres.any?
+    {"WHERE ", @wheres.join(" AND ", &.resolve)}.join unless @wheres.empty?
   end
 end

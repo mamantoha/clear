@@ -46,11 +46,9 @@ class Clear::Migration::Manager
   def current_version
     ensure_ready
 
-    if @migrations_up.any?
-      @migrations_up.max
-    else
-      nil
-    end
+    return nil if @migrations_up.empty?
+
+    @migrations_up.max
   end
 
   def max_version
@@ -209,7 +207,7 @@ class Clear::Migration::Manager
 
   # :nodoc:
   private def ensure_unicity!
-    if @migrations.any?
+    unless @migrations.empty?
       all_migrations = @migrations.map(&.uid)
       r = all_migrations - all_migrations.uniq
       raise migration_not_unique(r) unless r.empty?
@@ -260,9 +258,9 @@ class Clear::Migration::Manager
   # Print out the status ( up | down ) of all migrations found by the manager.
   def print_status : String
     ensure_ready
-    @migrations.sort { |a, b| a.as(Clear::Migration).uid <=> b.as(Clear::Migration).uid }.map do |m|
+    @migrations.sort { |a, b| a.as(Clear::Migration).uid <=> b.as(Clear::Migration).uid }.join("\n") do |m|
       active = @migrations_up.includes?(m.uid)
       "[#{active ? "✓".colorize.green : "✗".colorize.red}] #{m.uid} - #{m.class.name}"
-    end.join("\n")
+    end
   end
 end

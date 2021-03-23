@@ -21,8 +21,8 @@ module Clear::SQL
     end
 
     protected def print_froms
-      if @froms.any?
-        "FROM " + @froms.map(&.to_sql).join(", ")
+      unless @froms.empty?
+        "FROM " + @froms.join(", ", &.to_sql)
       end
     end
   end
