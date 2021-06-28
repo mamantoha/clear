@@ -236,7 +236,7 @@ module Clear
     # Usage:
     # Clear::SQL.execute("seconddatabase", "SELECT 1 FROM users")
     def execute(connection_name : String, sql)
-      log_query(sql){ Clear::SQL::ConnectionPool.with_connection(connection_name, &.exec_all(sql)) }
+      log_query(sql) { Clear::SQL::ConnectionPool.with_connection(connection_name, &.exec_all(sql)) }
     end
 
     # :nodoc:
