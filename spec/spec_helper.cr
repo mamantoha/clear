@@ -20,8 +20,8 @@ def initdb
     SQL
   )
 
-  Clear::SQL.init("postgres://#{postgres_user}:#{postgres_password}@#{postgres_host}/clear_spec", connection_pool_size: 5)
-  Clear::SQL.init("secondary", "postgres://#{postgres_user}:#{postgres_password}@#{postgres_host}/clear_secondary_spec", connection_pool_size: 5)
+  Clear::SQL.init("postgres://#{postgres_user}:#{postgres_password}@#{postgres_host}/clear_spec")
+  Clear::SQL.init("secondary", "postgres://#{postgres_user}:#{postgres_password}@#{postgres_host}/clear_secondary_spec")
 
   {% if flag?(:quiet) %} Log.setup(:error) {% else %} Log.setup(:debug) {% end %}
 end
