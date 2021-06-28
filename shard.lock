@@ -6,7 +6,7 @@ shards:
 
   ameba:
     git: https://github.com/veelenga/ameba.git
-    version: 0.14.1+git.commit.6aaf398c4326c125874ba192da452270276bd184
+    version: 0.14.3+git.commit.720810c3cb0709349e6dcbc56d18c9eddc36b815
 
   db:
     git: https://github.com/crystal-lang/crystal-db.git
@@ -14,7 +14,7 @@ shards:
 
   generate:
     git: https://github.com/anykeyh/generate.cr.git
-    version: 0.1.0+git.commit.27a59d663ded8ce39a361e3a88b8dd747f59ce42
+    version: 0.1.0+git.commit.f5dafc934a70e0ee2f246dddf3df44686f844da2
 
   inflector:
     git: https://github.com/phoffer/inflector.cr.git
@@ -22,5 +22,5 @@ shards:
 
   pg:
     git: https://github.com/will/crystal-pg.git
-    version: 0.23.1+git.commit.cafe039cfd6340a271e81603943bb1975f5a91f5
+    version: 0.23.2+git.commit.cafe1e2a48764464299b44ab26449eb503be5934
 
