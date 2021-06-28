@@ -32,11 +32,11 @@ module Clear::Model::HasHooks
   end
 
   module ClassMethods
-    def before(event_name : Symbol, &block : Clear::Model -> Void)
+    def before(event_name : Symbol, &block : Clear::Model -> Nil)
       Clear::Model::EventManager.attach(self, :before, event_name, block)
     end
 
-    def after(event_name : Symbol, &block : Clear::Model -> Void)
+    def after(event_name : Symbol, &block : Clear::Model -> Nil)
       Clear::Model::EventManager.attach(self, :after, event_name, block)
     end
   end
