@@ -10,8 +10,8 @@ module Clear::Model::Connection
       #
       # Example:
       # ```
-      #  Clear::SQL.init("postgres://postgres@localhost/database_1", connection_pool_size: 5)
-      #  Clear::SQL.init("secondary", "postgres://postgres@localhost/database_2", connection_pool_size: 5)
+      #  Clear::SQL.init("postgres://postgres@localhost/database_1")
+      #  Clear::SQL.init("secondary", "postgres://postgres@localhost/database_2")
       #
       # class ModelA
       #   include Clear::Model

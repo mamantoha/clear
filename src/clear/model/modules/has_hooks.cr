@@ -13,9 +13,9 @@ module Clear::Model::HasHooks
   #
   # Returns `self`
   def with_triggers(event_name, &block)
-    Clear::SQL.transaction do
+    Clear::SQL.transaction do |cnx|
       trigger_before_events(event_name)
-      yield
+      yield(cnx)
       trigger_after_events(event_name)
     end
     self
